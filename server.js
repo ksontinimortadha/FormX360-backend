@@ -6,15 +6,13 @@ require("dotenv").config();
 
 const app = express();
 
-const corsOptions = {
-  origin: "https://formx360.vercel.app", // Allow the frontend to access the backend
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  allowedHeaders: "Content-Type, Authorization", // Allowed headers
-  credentials: true,
-};
-
-// Use the CORS middleware
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: ["https://formx360.vercel.app"], // Allow your frontend domain
+    credentials: true, // Allow cookies, if necessary
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+  })
+);
 
 // Routes
 app.use("/users", require("./routes/userRoutes"));
@@ -30,7 +28,14 @@ mongoose
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
-app.options("*", cors(corsOptions));
+app.options(
+  "*",
+  cors({
+    origin: ["https://formx360.vercel.app"], // Allow your frontend domain
+    credentials: true, // Allow cookies, if necessary
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+  })
+);
 
 // Server should run independently of MongoDB
 const PORT = process.env.PORT || 5000;
