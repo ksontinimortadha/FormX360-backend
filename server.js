@@ -10,6 +10,7 @@ const corsOptions = {
   origin: "https://formx360.vercel.app", // Allow the frontend to access the backend
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: "Content-Type, Authorization", // Allowed headers
+  credentials: true,
 };
 
 // Use the CORS middleware
@@ -29,6 +30,7 @@ mongoose
   })
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
+app.options("*", cors(corsOptions));
 
 // Server should run independently of MongoDB
 const PORT = process.env.PORT || 5000;
