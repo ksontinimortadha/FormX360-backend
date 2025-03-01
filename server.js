@@ -7,7 +7,7 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "https://https://formx360.vercel.app" }));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 app.use(bodyParser.json());
 
