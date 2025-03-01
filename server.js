@@ -7,8 +7,11 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "https://form-x360.vercel.app", // Allow only frontend to access the backend
+  })
+);app.use(bodyParser.json());
 
 // Routes
 app.use("/users", require("./routes/userRoutes"));
