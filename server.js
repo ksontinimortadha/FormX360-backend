@@ -17,9 +17,9 @@ app.use((req, res, next) => {
 });
 
 // Routes (Use /api prefix for better compatibility with Vercel)
-app.use("/users", require("./routes/userRoutes"));
-app.use("/responses", require("./routes/responseRoutes"));
-app.use("/companies", require("./routes/companyRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/responses", require("./routes/responseRoutes"));
+app.use("/api/companies", require("./routes/companyRoutes"));
 
 // Root Route (Check if the server is running)
 app.get("/", (req, res) => {
@@ -39,9 +39,7 @@ const connectDB = async () => {
   }
 };
 
-// Start Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  await connectDB(); // Connect to MongoDB after starting the server
-});
+connectDB(); // Connect to MongoDB before handling requests
+
+// Export Express app for Vercel (DO NOT use app.listen())
+module.exports = app;
