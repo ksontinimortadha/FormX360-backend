@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 // Routes (Use /api prefix for better compatibility with Vercel)
-app.use("/users", require("./routes/userRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 app.use("/responses", require("./routes/responseRoutes"));
 app.use("/companies", require("./routes/companyRoutes"));
 
