@@ -6,12 +6,14 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
-app.use(
-  cors({
-    origin: "https://form-x360.vercel.app", // Allow only frontend to access the backend
-  })
-);app.use(bodyParser.json());
+const corsOptions = {
+  origin: "https://formx360.vercel.app", // Allow the frontend to access the backend
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: "Content-Type, Authorization", // Allowed headers
+};
+
+// Use the CORS middleware
+app.use(cors(corsOptions));
 
 // Routes
 app.use("/users", require("./routes/userRoutes"));
